@@ -22,7 +22,7 @@ Esta plataforma mostra o potencial de energia solar de escolas públicas, estima
 1. **Node.js** = 18
 2. **Ollama** instalado e ativo (`ollama serve`)
    - Puxe um modelo adequado, ex.: `ollama pull mistral`
-   - Vari�veis opcionais: `OLLAMA_MODEL` e `OLLAMA_HOST`
+   - Variáveis opcionais: `OLLAMA_MODEL` e `OLLAMA_HOST`
 3. Opcional: chave da Hugging Face (`HUGGINGFACE_API_KEY`) para fallback
 4. Preencha `.env.local` (crie se necess�rio):
    ```env
@@ -45,7 +45,7 @@ Acesse [http://localhost:3000](http://localhost:3000).
 ## Estrutura das abas
 
 - **Mapa**: visualização das escolas com tooltip e modal detalhado.
-- **Simula��o IA**: formulário e painel com resultados preditivos.
+- **Simulação IA**: formulário e painel com resultados preditivos.
 - **Chat**: conversa com o consultor virtual para dúvidas estrat�gicas.
 
 ## Scripts principais
@@ -58,13 +58,13 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 - Os registros base est�o em `src/data/escolas.ts` (inclui escolas de SP e PR).
 - Tipos de dados em `src/data/escola.ts`.
-- Estimativas s�o recalculadas em tempo real por `src/lib/energy-model.ts`.
+- Estimativas são recalculadas em tempo real por `src/lib/energy-model.ts`.
 
 ## API interna
 
 - `POST /api/chat-solar`
   - Tenta responder com Ollama (`OLLAMA_MODEL`).
-  - Se indispon�vel, busca resposta na Hugging Face (se configurada).
+  - Se indisponível, busca resposta na Hugging Face (se configurada).
 
 ### Exemplo de payload
 ```json
