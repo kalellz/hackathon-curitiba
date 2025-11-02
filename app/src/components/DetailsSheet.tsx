@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Escola } from "@/data/escola";
-import { Leaf } from "lucide-react";
+import { BrainCircuit, Leaf } from "lucide-react";
 
 type Props = {
   open: boolean;
@@ -46,7 +46,7 @@ export default function DetailsSheet({ open, onOpenChange, escola, show }: Props
             <Badge variant="secondary">{fmt.format(escola.numero_alunos)} alunos</Badge>
             <Badge variant="outline">Tarifa {currency(escola.tarifa_utilizada_reais_por_kwh)}</Badge>
           </div>
-
+    
           <section>
             <h3 className="font-medium mb-2">Gestao</h3>
             <ul className="ml-5 list-disc space-y-1">
@@ -85,9 +85,13 @@ export default function DetailsSheet({ open, onOpenChange, escola, show }: Props
           {show.projeto && escola.projeto_solar && (
             <section>
               <div className="rounded-md border border-emerald-200 bg-emerald-50/70 p-4">
-                <div className="flex items-center gap-2 text-emerald-700">
+                <div className="flex flex-wrap items-center gap-3 text-emerald-700">
                   <Leaf className="h-4 w-4" />
                   <span className="font-semibold">Projeto Solar</span>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-100 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
+                    <BrainCircuit className="h-3 w-3" />
+                    Recomendação por IA
+                  </span>
                 </div>
                 <div className="mt-3 space-y-1 text-sm text-zinc-700">
                   <div>
