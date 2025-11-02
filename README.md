@@ -81,9 +81,9 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 ## Contribuição
 
-1. Fa�a um fork
+1. Faça um fork
 2. Crie uma branch: `git checkout -b feature/nova-ideia`
-3. Submeta um PR descrevendo a motiva��o
+3. Submeta um PR descrevendo a motivação
 
 ## Licença
 
