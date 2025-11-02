@@ -4,10 +4,19 @@ import { useMemo, useRef, useState } from "react";
 import { escolas } from "@/data/escolas";
 import { Escola } from "@/data/escola";
 import LeafletMap from "@/components/map/LeafletMap";
-import DetailsSheet from "@/components/DetailsSheet";
+import DetailsDialog from "@/components/DetailsDialog";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+const numberFormatter = new Intl.NumberFormat("pt-BR");
+const currencyFormatter = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
+const formatNumber = (value: number) => numberFormatter.format(value);
+const formatCurrency = (value: number) => currencyFormatter.format(value);
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -24,23 +33,33 @@ export default function Page() {
     potenciaKwp: number;
   } | null>(null);
 
-  const items = useMemo(() => {
-    return escolas.filter(
-      (e) =>
-        !!e.coordenadas &&
-        typeof e.coordenadas.latitude === "number" &&
-        typeof e.coordenadas.longitude === "number"
-    );
-  }, []);
+  const items = useMemo(
+    () =>
+      escolas.filter(
+        (e) =>
+          !!e.coordenadas &&
+          typeof e.coordenadas.latitude === "number" &&
+          typeof e.coordenadas.longitude === "number",
+      ),
+    [],
+  );
 
-  const markers = items.map((e) => ({
-    position: [e.coordenadas.latitude, e.coordenadas.longitude] as [number, number],
-    label: e.nome_escola,
-    onClick: () => {
-      setSelecionada(e);
-      setOpen(true);
-    },
-  }));
+  const markers = useMemo(
+    () =>
+      items.map((e) => ({
+        position: [e.coordenadas.latitude, e.coordenadas.longitude] as [number, number],
+        tooltip: (
+          <div className="space-y-1 text-center text-xs">
+            <p className="text-sm font-semibold">{e.nome_escola}</p>
+          </div>
+        ),
+        onClick: () => {
+          setSelecionada(e);
+          setOpen(true);
+        },
+      })),
+    [items],
+  );
 
   const scrollToMap = () => {
     mapSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -66,8 +85,8 @@ export default function Page() {
 
     const tarifa = 0.671; // R$/kWh
     const economiaPercentual = 0.88;
-    const alphaInvestimento = 410000 / 182400; // R$ por kWh anual baseado na escola de referência
-    const co2Factor = 78 / 182400; // toneladas CO2 evitadas por kWh anual
+    const alphaInvestimento = 410000 / 182400; // custo por kWh anual baseado na escola de referencia
+    const co2Factor = 78 / 182400; // toneladas de CO2 evitadas por kWh anual
 
     const consumoMensalKwh = energiaMes / tarifa;
     const consumoAnual = consumoMensalKwh * 12;
@@ -75,7 +94,7 @@ export default function Page() {
     const economiaAnual = energiaMes * 12 * economiaPercentual;
     const payback = investimento / economiaAnual;
     const co2 = consumoAnual * co2Factor;
-    const potenciaKwp = consumoAnual / (182400 / 150); // escala com base na escola exemplo
+    const potenciaKwp = consumoAnual / (182400 / 150);
 
     setResultado({
       investimento,
@@ -90,7 +109,7 @@ export default function Page() {
   return (
     <main className="container mx-auto p-4 space-y-12">
       <header className="mb-3 flex items-center justify-between gap-2">
-        <div className="font-semibold text-sm text-emerald-700">Energia Inteligente</div>
+        <div className="text-sm font-semibold text-emerald-700">Energia Inteligente</div>
         <ThemeToggle />
       </header>
 
@@ -104,7 +123,7 @@ export default function Page() {
             </h1>
             <p className="text-base text-zinc-600 md:text-lg">
               Avalie consumo, custos e reducao de CO2 com insights construidos por IA. Centralize dados das escolas,
-              priorize investimentos e acelere a descarbonizacao da sua rede de ensino.
+              priorize investimentos e acelere a descarbonizacao da rede de ensino.
             </p>
             <ul className="mx-auto max-w-lg space-y-2 text-sm text-zinc-600">
               <li className="flex items-start justify-center gap-2 text-left">
@@ -122,11 +141,11 @@ export default function Page() {
             </ul>
           </div>
           <div className="flex w-full max-w-xs flex-col items-center gap-3">
-          <Button size="lg" className="w-full" onClick={scrollToMap}>
-            Explorar agora
-          </Button>
-          <Button
-            size="lg"
+            <Button size="lg" className="w-full" onClick={scrollToMap}>
+              Explorar agora
+            </Button>
+            <Button
+              size="lg"
               variant="outline"
               className="w-full border-emerald-200 text-emerald-700 hover:bg-emerald-50"
               onClick={handleSimular}
@@ -139,7 +158,7 @@ export default function Page() {
 
       <div ref={mapSectionRef} className="space-y-6 pt-4">
         <h2 className="text-xl font-semibold text-zinc-800">Mapa de escolas com potencial solar</h2>
-        {items.length > 0 ? (
+        {markers.length > 0 ? (
           <LeafletMap markers={markers} />
         ) : (
           <p className="text-muted-foreground">Nenhuma escola encontrada.</p>
@@ -152,11 +171,11 @@ export default function Page() {
       >
         <div className="mb-6 space-y-2 text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700">
-            Simulação Inteligente
+            Simulacao inteligente
           </span>
           <h2 className="text-2xl font-semibold text-emerald-900">Preencha os dados da sua escola</h2>
           <p className="text-sm text-zinc-600">
-            Informe o gasto mensal de energia e o número de alunos para estimar o potencial solar e o retorno do
+            Informe o gasto mensal de energia e o numero de alunos para estimar o potencial solar e o retorno do
             investimento com IA.
           </p>
         </div>
@@ -176,7 +195,7 @@ export default function Page() {
               />
             </label>
             <label className="flex flex-col gap-1 text-sm text-zinc-600">
-              Número de alunos
+              Numero de alunos
               <Input
                 type="number"
                 min="0"
@@ -189,7 +208,7 @@ export default function Page() {
             </label>
           </div>
           <Button type="submit" size="lg" className="self-center">
-            Calcular cenário com IA
+            Calcular cenario com IA
           </Button>
         </form>
 
@@ -197,26 +216,18 @@ export default function Page() {
           <div className="mt-6 grid gap-4 rounded-xl border border-emerald-100 bg-emerald-50/60 p-6 text-sm text-emerald-900 sm:grid-cols-2">
             <div>
               <p className="font-semibold">Investimento estimado</p>
-              <p className="text-lg font-bold">
-                {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
-                  resultado.investimento
-                )}
-              </p>
+              <p className="text-lg font-bold">{formatCurrency(resultado.investimento)}</p>
             </div>
             <div>
               <p className="font-semibold">Economia anual projetada</p>
-              <p className="text-lg font-bold">
-                {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
-                  resultado.economiaAnual
-                )}
-              </p>
+              <p className="text-lg font-bold">{formatCurrency(resultado.economiaAnual)}</p>
             </div>
             <div>
               <p className="font-semibold">Payback estimado</p>
               <p className="text-lg font-bold">{resultado.payback.toFixed(1)} anos</p>
             </div>
             <div>
-              <p className="font-semibold">CO₂ evitado</p>
+              <p className="font-semibold">CO2 evitado</p>
               <p className="text-lg font-bold">{resultado.co2.toFixed(1)} ton/ano</p>
             </div>
             <div>
@@ -224,7 +235,7 @@ export default function Page() {
               <p className="text-lg font-bold">{resultado.consumoAnual.toFixed(0)} kWh</p>
             </div>
             <div>
-              <p className="font-semibold">Potência recomendada</p>
+              <p className="font-semibold">Potencia recomendada</p>
               <p className="text-lg font-bold">{resultado.potenciaKwp.toFixed(0)} kWp</p>
             </div>
           </div>
@@ -232,18 +243,14 @@ export default function Page() {
       </div>
 
       {selecionada && (
-        <DetailsSheet
+        <DetailsDialog
           open={open}
           onOpenChange={setOpen}
           escola={selecionada}
-          show={{
-            consumo: true,
-            custos: true,
-            projeto: true,
-            co2: true,
-          }}
+          show={{ consumo: true, custos: true, projeto: true, co2: true }}
         />
       )}
     </main>
   );
 }
+

@@ -6,7 +6,7 @@ import L from "leaflet";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
-import { useEffect, useMemo } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl,
@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
 
 type MarkerData = {
   position: [number, number];
-  label?: string;
+  tooltip?: ReactNode;
   onClick?: () => void;
 };
 
@@ -67,7 +67,11 @@ export default function LeafletMap({ markers, defaultCenter }: Props) {
             pathOptions={{ color: "#0ea5e9", weight: 2, fillColor: "#38bdf8", fillOpacity: 0.9 }}
             className="cursor-pointer"
           >
-            {m.label && <Tooltip direction="top">{m.label}</Tooltip>}
+            {m.tooltip && (
+              <Tooltip direction="top" offset={[0, -8]} className="leaflet-tooltip-custom" opacity={1}>
+                {m.tooltip}
+              </Tooltip>
+            )}
           </CircleMarker>
         ))}
         <FitBounds positions={positions} />

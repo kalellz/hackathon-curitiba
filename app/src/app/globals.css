@@ -127,3 +127,16 @@
 .leaflet-bottom {
   z-index: 0 !important;
 }
+
+.leaflet-tooltip-custom {
+  background: #0f766e;
+  color: #ecfdf5;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 10px 25px rgba(15, 118, 110, 0.25);
+}
+
+.leaflet-tooltip-custom:before {
+  border-top-color: #0f766e !important;
+}
