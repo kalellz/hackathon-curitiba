@@ -147,13 +147,13 @@ export default function Page() {
             </ul>
           </div>
           <div className="flex w-full max-w-xs flex-col items-center gap-3">
-            <Button size="lg" className="w-full" onClick={scrollToMap}>
+            <Button size="lg" className="w-full cursor-pointer" onClick={scrollToMap}>
               Explorar agora
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="w-full border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+              className="w-full cursor-pointer border-emerald-200 text-emerald-700 hover:bg-emerald-50"
               onClick={handleSimular}
             >
               Simular com IA
@@ -213,7 +213,7 @@ export default function Page() {
               />
             </label>
           </div>
-          <Button type="submit" size="lg" className="self-center">
+          <Button type="submit" size="lg" className="self-center cursor-pointer">
             Calcular cenario com IA
           </Button>
         </form>

@@ -76,7 +76,7 @@ export default function ChatSolar() {
   };
 
   return (
-    <section className="rounded-2xl border border-emerald-200 bg-white/70 p-6 shadow-sm backdrop-blur">
+    <section className="rounded-2xl border border-emerald-200 bg-white/70 p-6 shadow-sm backdrop-blur transition-shadow duration-300 hover:shadow-md">
       <div className="mb-4 space-y-2 text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
           Chat com especialista IA
@@ -92,8 +92,10 @@ export default function ChatSolar() {
         {messages.map((message, index) => (
           <Card
             key={index}
-            className={`p-3 text-sm ${
-              message.role === "assistant" ? "border-emerald-200 bg-emerald-50/80" : "border-border"
+            className={`p-3 text-sm transition-transform transition-colors duration-200 hover:-translate-y-0.5 hover:shadow-sm cursor-pointer ${
+              message.role === "assistant"
+                ? "border-emerald-200 bg-emerald-50/80 hover:border-emerald-300"
+                : "border-border hover:border-emerald-300"
             }`}
           >
             <p className="font-semibold text-emerald-800">
@@ -105,19 +107,26 @@ export default function ChatSolar() {
       </div>
 
       <div className="space-y-3">
-        {loading ? <></> : <Textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder="Ex.: Temos 600 alunos, conta mensal de R$ 14 mil. Como dimensionar o sistema? Quais incentivos posso buscar?"
-          className="min-h-[120px]"
+        {!loading && (
+          <Textarea
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder="Ex.: Temos 600 alunos, conta mensal de R$ 14 mil. Como dimensionar o sistema? Quais incentivos posso buscar?"
+            className="min-h-[120px] transition-colors duration-200 focus:border-emerald-400 focus:ring-emerald-300"
+            disabled={loading}
+          />
+        )}
+
+        <Button
+          onClick={handleSend}
           disabled={loading}
-        />}
-        
-        <Button onClick={handleSend} disabled={loading} className="w-full sm:w-auto">
+          className="w-full sm:w-auto cursor-pointer transition-transform transition-colors duration-200 hover:-translate-y-0.5 hover:bg-emerald-600 hover:text-white disabled:cursor-not-allowed"
+        >
           {loading ? "..." : "Enviar pergunta"}
         </Button>
       </div>
     </section>
   );
 }
+
 
