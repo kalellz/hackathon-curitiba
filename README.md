@@ -1,12 +1,12 @@
 # Painel Inteligente de Escolas
 
-Esta plataforma mostra o potencial de energia solar de escolas públicas, estimando payback, economia e impacto ambiental com apoio de IA. O projeto re�ne mapa, simulador interativo e chatbot consultivo, ajudando gestores a priorizar investimentos em geração fotovoltaica.
+Esta plataforma mostra o potencial de energia solar de escolas públicas, estimando payback, economia e impacto ambiental com apoio de IA. O projeto reune mapa, simulador interativo e chatbot consultivo, ajudando gestores a priorizar investimentos em geração fotovoltaica.
 
 ## Principais recursos
 
 - **Mapa interativo** com dados reais e estimados de consumo, custos e potencial solar. Escolas do Paraná foram adicionadas com base no portal [consultaescolas.pr.gov.br](https://www.consultaescolas.pr.gov.br/).
 - **Simulação IA**: informa gasto mensal e número de alunos e a IA estima investimento, economia, payback, CO2 evitado, árvores e carros equivalentes.
-- **Insights detalhados**: ao clicar na escola, abre-se um modal com estimativas din�micas geradas pelo modelo treinado sobre o dataset.
+- **Insights detalhados**: ao clicar na escola, abre-se um modal com estimativas dinâmicas geradas pelo modelo treinado sobre o dataset.
 - **Chat consultivo**: especialista virtual (rodando via [Ollama](https://ollama.com/), com fallback opcional para Hugging Face) responde perguntas sobre implantação e eficiencia energética.
 
 ## Arquitetura
@@ -69,7 +69,7 @@ Acesse [http://localhost:3000](http://localhost:3000).
 ### Exemplo de payload
 ```json
 {
-  "prompt": "Temos conta de R$ 12 mil por m�s e 800 alunos. Como dimensionar?"
+  "prompt": "Temos conta de R$ 12 mil por mês e 800 alunos. Como dimensionar?"
 }
 ```
 
