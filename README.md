@@ -1,18 +1,18 @@
 # Geocompasso Energia � Painel Inteligente de Escolas
 
-Esta plataforma mostra o potencial de energia solar de escolas p�blicas, estimando payback, economia e impacto ambiental com apoio de IA. O projeto re�ne mapa, simulador interativo e chatbot consultivo, ajudando gestores a priorizar investimentos em gera��o fotovoltaica.
+Esta plataforma mostra o potencial de energia solar de escolas públicas, estimando payback, economia e impacto ambiental com apoio de IA. O projeto re�ne mapa, simulador interativo e chatbot consultivo, ajudando gestores a priorizar investimentos em geração fotovoltaica.
 
 ## Principais recursos
 
-- **Mapa interativo** com dados reais e estimados de consumo, custos e potencial solar. Escolas do Paran� foram adicionadas com base no portal [consultaescolas.pr.gov.br](https://www.consultaescolas.pr.gov.br/).
-- **Simula��o IA**: informa gasto mensal e n�mero de alunos e a IA estima investimento, economia, payback, CO2 evitado, �rvores e carros equivalentes.
+- **Mapa interativo** com dados reais e estimados de consumo, custos e potencial solar. Escolas do Paraná foram adicionadas com base no portal [consultaescolas.pr.gov.br](https://www.consultaescolas.pr.gov.br/).
+- **Simulação IA**: informa gasto mensal e número de alunos e a IA estima investimento, economia, payback, CO2 evitado, árvores e carros equivalentes.
 - **Insights detalhados**: ao clicar na escola, abre-se um modal com estimativas din�micas geradas pelo modelo treinado sobre o dataset.
-- **Chat consultivo**: especialista virtual (rodando via [Ollama](https://ollama.com/), com fallback opcional para Hugging Face) responde perguntas sobre implanta��o e efici�ncia energ�tica.
+- **Chat consultivo**: especialista virtual (rodando via [Ollama](https://ollama.com/), com fallback opcional para Hugging Face) responde perguntas sobre implantação e eficiencia energética.
 
 ## Arquitetura
 
 - **Next.js 14 App Router + TypeScript**
-- **Tailwind CSS / shadcn UI** para componentes reutiliz�veis
+- **Tailwind CSS / shadcn UI** para componentes reutilizáveis
 - **Leaflet + React Leaflet** para o mapa
 - **Modelo de IA local** (Ollama) treinado com os dados das escolas para projetar payback, economia e CO2
 - **Fallback opcional** via Hugging Face Inference API
@@ -44,15 +44,15 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 ## Estrutura das abas
 
-- **Mapa**: visualiza��o das escolas com tooltip e modal detalhado.
-- **Simula��o IA**: formul�rio e painel com resultados preditivos.
-- **Chat**: conversa com o consultor virtual para d�vidas estrat�gicas.
+- **Mapa**: visualização das escolas com tooltip e modal detalhado.
+- **Simula��o IA**: formulário e painel com resultados preditivos.
+- **Chat**: conversa com o consultor virtual para dúvidas estrat�gicas.
 
 ## Scripts principais
 
-- `npm run dev` � ambiente de desenvolvimento
-- `npm run build` � build de produ��o
-- `npm start` � servidor de produ��o
+- `npm run dev` - ambiente de desenvolvimento
+- `npm run build` - build de produção
+- `npm start` - servidor de produção
 
 ## Dados
 
@@ -87,4 +87,4 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 ## Licen�a
 
-Projeto para fins educativos � adapte conforme a necessidade da sua rede de ensino.
+Projeto para fins educativos e adapte conforme a necessidade da sua rede de ensino.
