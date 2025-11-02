@@ -24,6 +24,20 @@ export const escolas: Escola[] = [
       latitude: -23.577645618130912,
       longitude: -46.55428834883495,
     },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 189000,
+      economia_anual_reais: 49742.04,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 36,
+      descricao: {
+        topico_1:
+          "Investimento estimado em torno de R$ 189 mil para um sistema fotovoltaico de aproximadamente 70 kWp, dimensionado para a demanda anual de 84 MWh.",
+        topico_2:
+          "A geracao solar pode reduzir cerca de 88% da conta atual, economizando por volta de R$ 49,7 mil ao ano e garantindo retorno completo em 3,8 anos.",
+        topico_3:
+          "A producao limpa evita a emissao de cerca de 36 toneladas de CO2 anualmente, equivalente ao plantio de mais de 250 arvores adultas.",
+      },
+    },
   },
   {
     nome_escola: "Ascanio de Azevedo Castilho Prof",
@@ -45,6 +59,20 @@ export const escolas: Escola[] = [
     coordenadas: {
       latitude: -23.557686436090798,
       longitude: -46.474043303543404,
+    },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 249000,
+      economia_anual_reais: 65323.53,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 47,
+      descricao: {
+        topico_1:
+          "Projeto avaliado em aproximadamente R$ 249 mil com sistema fotovoltaico de 90 kWp, adequado para gerar cerca de 111 MWh por ano.",
+        topico_2:
+          "A economia potencial ultrapassa R$ 65 mil anuais, com reducao de ate 88% na fatura de energia e payback em torno de 3,8 anos.",
+        topico_3:
+          "A implantacao evita aproximadamente 47 toneladas de CO2 por ano, comparavel ao plantio de mais de 330 arvores adultas.",
+      },
     },
   },
   {
@@ -72,6 +100,20 @@ export const escolas: Escola[] = [
       latitude: -21.16708528608436,
       longitude: -50.184590432445795,
     },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 145000,
+      economia_anual_reais: 37927.23,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 28,
+      descricao: {
+        topico_1:
+          "Investimento previsto de R$ 145 mil para um sistema aproximado de 53 kWp, capaz de gerar 64 MWh anuais e suprir a carga atual.",
+        topico_2:
+          "A economia anual estimada gira em torno de R$ 38 mil, com reducao de 88% na conta e retorno financeiro projetado em 3,8 anos.",
+        topico_3:
+          "Com a geracao solar, a escola deixa de emitir cerca de 28 toneladas de CO2 por ano, similar ao plantio de mais de 200 arvores.",
+      },
+    },
   },
   {
     nome_escola: "CEEJA de Mogi das Cruzes",
@@ -95,6 +137,20 @@ export const escolas: Escola[] = [
     coordenadas: {
       latitude: -23.53144776596229,
       longitude: -46.213399144030134,
+    },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 300000,
+      economia_anual_reais: 78970.11,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 57,
+      descricao: {
+        topico_1:
+          "Implantacao orcada em cerca de R$ 300 mil para um sistema de 110 kWp, cobrindo a producao de 134 MWh anuais.",
+        topico_2:
+          "Apos a instalacao, a escola pode poupar perto de R$ 79 mil por ano, reduzindo em 88% os gastos e recuperando o investimento em 3,8 anos.",
+        topico_3:
+          "A energia renovavel evita aproximadamente 57 toneladas de CO2 por ano, equivalente a plantar mais de 400 arvores maduras.",
+      },
     },
   },
   {
@@ -129,6 +185,20 @@ export const escolas: Escola[] = [
       latitude: -21.400654205950794,
       longitude: -48.503949390923964,
     },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 373000,
+      economia_anual_reais: 97914.64,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 71,
+      descricao: {
+        topico_1:
+          "Investimento de aproximadamente R$ 373 mil para um arranjo fotovoltaico de 136 kWp, suficiente para gerar 166 MWh anuais.",
+        topico_2:
+          "A economia prevista se aproxima de R$ 98 mil por ano, com reducao de 88% na despesa de energia e retorno estimado em 3,8 anos.",
+        topico_3:
+          "O sistema evita perto de 71 toneladas de CO2 a cada ano, equivalente ao plantio de mais de 500 arvores adultas.",
+      },
+    },
   },
   {
     nome_escola: "Rener Caram Professor",
@@ -156,6 +226,20 @@ export const escolas: Escola[] = [
     coordenadas: {
       latitude: -23.651906895904833,
       longitude: -46.56159736121042,
+    },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 202000,
+      economia_anual_reais: 53143.2,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 38,
+      descricao: {
+        topico_1:
+          "Projeto avaliado em cerca de R$ 202 mil com geracao de 75 kWp, cobrindo a demanda anual de 90 MWh.",
+        topico_2:
+          "O sistema pode economizar aproximadamente R$ 53 mil por ano, com reducao de 88% nos gastos e payback em 3,8 anos.",
+        topico_3:
+          "A producao renovavel evita perto de 38 toneladas de CO2 anuais, comparavel ao plantio de mais de 270 arvores adultas.",
+      },
     },
   },
   {
@@ -185,6 +269,20 @@ export const escolas: Escola[] = [
       latitude: -22.852983925965486,
       longitude: -47.10781187472912,
     },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 299000,
+      economia_anual_reais: 78661.97,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 57,
+      descricao: {
+        topico_1:
+          "Investimento previsto de R$ 299 mil em um sistema de 109 kWp, alinhado a uma geracao anual de 133 MWh.",
+        topico_2:
+          "A economia estimada e de aproximadamente R$ 79 mil por ano, reduzindo 88% do gasto atual e retornando o investimento em 3,8 anos.",
+        topico_3:
+          "A iniciativa evita quase 57 toneladas de CO2 a cada ano, equivalente ao plantio de mais de 400 arvores.",
+      },
+    },
   },
   {
     nome_escola: "CEL JTO A EE Roosevelt Presidente",
@@ -211,6 +309,20 @@ export const escolas: Escola[] = [
       latitude: -23.56215605781083,
       longitude: -46.6356045747084,
     },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 111000,
+      economia_anual_reais: 29051.62,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 21,
+      descricao: {
+        topico_1:
+          "Projeto de aproximadamente R$ 111 mil com sistema fotovoltaico de 40 kWp, produzindo perto de 49 MWh ao ano.",
+        topico_2:
+          "A economia esperada e de quase R$ 29 mil anuais, reduzindo 88% da despesa e assegurando payback em 3,8 anos.",
+        topico_3:
+          "A geracao limpa evita por volta de 21 toneladas de CO2 por ano, equivalente ao plantio de mais de 150 arvores.",
+      },
+    },
   },
   {
     nome_escola: "Aristides de Castro",
@@ -235,6 +347,20 @@ export const escolas: Escola[] = [
       latitude: -23.58657934873738,
       longitude: -46.675787203542505,
     },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 163000,
+      economia_anual_reais: 42939.71,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 31,
+      descricao: {
+        topico_1:
+          "Investimento projetado de R$ 163 mil para um sistema de cerca de 60 kWp, cobrindo a demanda anual de 73 MWh.",
+        topico_2:
+          "A economia anual estimada e de R$ 43 mil, reduzindo aproximadamente 88% da conta e devolvendo o capital em 3,8 anos.",
+        topico_3:
+          "O arranjo evita perto de 31 toneladas de CO2 ao ano, equivalentes ao plantio de mais de 220 arvores.",
+      },
+    },
   },
   {
     nome_escola: "Maria Augusta Saraiva Doutora",
@@ -257,6 +383,20 @@ export const escolas: Escola[] = [
     coordenadas: {
       latitude: -23.552681072859958,
       longitude: -46.64333310169933,
+    },
+    projeto_solar: {
+      custo_estimado_implantacao_reais: 324000,
+      economia_anual_reais: 85029.12,
+      payback_anos: 3.8,
+      co2_evitar_ton_ano: 62,
+      descricao: {
+        topico_1:
+          "Projeto avaliado em torno de R$ 324 mil para um sistema fotovoltaico de 118 kWp, responsavel por aproximadamente 144 MWh anuais.",
+        topico_2:
+          "A economia anual pode atingir R$ 85 mil, reduzindo em torno de 88% os gastos e proporcionando retorno em 3,8 anos.",
+        topico_3:
+          "A geracao renovavel evita cerca de 62 toneladas de CO2 por ano, o que corresponde ao plantio de mais de 440 arvores adultas.",
+      },
     },
   },
   {
@@ -289,11 +429,11 @@ export const escolas: Escola[] = [
       co2_evitar_ton_ano: 78,
       descricao: {
         topico_1:
-          "Investimento estimado para sistema de aproximadamente 150 kWp, suficiente para gerar 182 MWh por ano.",
+          "O custo estimado para um sistema de 150 kWp gira em torno de R$ 410 mil, cobrindo a geracao de 182 MWh anuais.",
         topico_2:
-          "Economia potencial de ate 88% na conta anual, resultando em cerca de R$ 107 mil/ano e payback em 3,8 anos.",
+          "A geracao propria pode reduzir ate 88% da despesa de energia, economizando cerca de R$ 107 mil por ano e trazendo payback em 3,8 anos.",
         topico_3:
-          "Reducao de 78 toneladas de CO2 por ano, equivalente ao plantio de mais de 560 arvores adultas.",
+          "A escola deixa de emitir perto de 78 toneladas de CO2 por ano, equivalente ao plantio de mais de 560 arvores adultas.",
       },
     },
   },
