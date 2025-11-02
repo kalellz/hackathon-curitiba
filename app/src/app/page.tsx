@@ -18,6 +18,9 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 const formatNumber = (value: number) => numberFormatter.format(value);
 const formatCurrency = (value: number) => currencyFormatter.format(value);
 
+const TREES_PER_TON = 560 / 78; // referencia aproximada usando dados reais
+const CAR_TON_PER_YEAR = 4.6; // emissao media anual de um carro (ton CO2)
+
 export default function Page() {
   const [open, setOpen] = useState(false);
   const [selecionada, setSelecionada] = useState<Escola | null>(null);
@@ -32,6 +35,43 @@ export default function Page() {
     consumoAnual: number;
     potenciaKwp: number;
   } | null>(null);
+
+  const model = useMemo(() => {
+    const sample = escolas.filter((e) => e.projeto_solar);
+    if (!sample.length) {
+      return null;
+    }
+
+    let sumXX = 0;
+    let sumInvest = 0;
+    let sumEconomia = 0;
+    let sumCo2 = 0;
+    let sumPayback = 0;
+
+    sample.forEach((escola) => {
+      const consumo = escola.consumo_medio_kwh_ano;
+      const projeto = escola.projeto_solar!;
+      sumXX += consumo * consumo;
+      sumInvest += projeto.custo_estimado_implantacao_reais * consumo;
+      sumEconomia += projeto.economia_anual_reais * consumo;
+      sumCo2 += projeto.co2_evitar_ton_ano * consumo;
+      sumPayback += projeto.custo_estimado_implantacao_reais / projeto.economia_anual_reais;
+    });
+
+    return {
+      investCoef: sumInvest / sumXX,
+      economyCoef: sumEconomia / sumXX,
+      co2Coef: sumCo2 / sumXX,
+      paybackAvg: sumPayback / sample.length,
+    };
+  }, []);
+
+  const fallbackModel = {
+    investCoef: 410000 / 182400,
+    economyCoef: 0.671 * 0.88,
+    co2Coef: 78 / 182400,
+    paybackAvg: 3.8,
+  };
 
   const items = useMemo(
     () =>
@@ -49,7 +89,7 @@ export default function Page() {
       items.map((e) => ({
         position: [e.coordenadas.latitude, e.coordenadas.longitude] as [number, number],
         tooltip: (
-          <div className="space-y-1 text-center text-xs">
+           <div className="space-y-1 text-center text-xs">
             <p className="text-sm font-semibold">{e.nome_escola}</p>
           </div>
         ),
@@ -84,22 +124,21 @@ export default function Page() {
     }
 
     const tarifa = 0.671; // R$/kWh
-    const economiaPercentual = 0.88;
-    const alphaInvestimento = 410000 / 182400; // custo por kWh anual baseado na escola de referencia
-    const co2Factor = 78 / 182400; // toneladas de CO2 evitadas por kWh anual
-
     const consumoMensalKwh = energiaMes / tarifa;
     const consumoAnual = consumoMensalKwh * 12;
-    const investimento = Math.round(consumoAnual * alphaInvestimento);
-    const economiaAnual = energiaMes * 12 * economiaPercentual;
-    const payback = investimento / economiaAnual;
-    const co2 = consumoAnual * co2Factor;
+
+    const m = model ?? fallbackModel;
+    const investimento = Math.round(consumoAnual * m.investCoef);
+    const economiaAnual = consumoAnual * m.economyCoef;
+    const co2 = consumoAnual * m.co2Coef;
+    const paybackEstimado =
+      economiaAnual > 0 ? (investimento / economiaAnual + m.paybackAvg) / 2 : m.paybackAvg;
     const potenciaKwp = consumoAnual / (182400 / 150);
 
     setResultado({
       investimento,
       economiaAnual,
-      payback,
+      payback: paybackEstimado,
       co2,
       consumoAnual,
       potenciaKwp,
@@ -156,7 +195,7 @@ export default function Page() {
         </div>
       </section>
 
-      <div ref={mapSectionRef} className="space-y-6 pt-4">
+  <div ref={mapSectionRef} className="space-y-6 pt-4">
         <h2 className="text-xl font-semibold text-zinc-800">Mapa de escolas com potencial solar</h2>
         {markers.length > 0 ? (
           <LeafletMap markers={markers} />
@@ -237,6 +276,12 @@ export default function Page() {
             <div>
               <p className="font-semibold">Potencia recomendada</p>
               <p className="text-lg font-bold">{resultado.potenciaKwp.toFixed(0)} kWp</p>
+            </div>
+            <div className="sm:col-span-2 rounded-lg border border-emerald-200 bg-white/70 p-4 text-xs text-emerald-700">
+              <p>
+                Impacto ambiental: cerca de {Math.round(resultado.co2 * TREES_PER_TON)} arvores plantadas ou{" "}
+                {(resultado.co2 / CAR_TON_PER_YEAR).toFixed(1)} carros retirados das ruas por ano.
+              </p>
             </div>
           </div>
         )}
