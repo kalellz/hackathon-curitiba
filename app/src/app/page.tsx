@@ -1,9 +1,9 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useMemo, useRef, useState } from "react";
 import { escolas } from "@/data/escolas";
 import { Escola } from "@/data/escola";
-import LeafletMap from "@/components/map/LeafletMap";
 import DetailsDialog from "@/components/DetailsDialog";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,8 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 
 const formatNumber = (value: number) => numberFormatter.format(value);
 const formatCurrency = (value: number) => currencyFormatter.format(value);
+
+const LeafletMap = dynamic(() => import("@/components/map/LeafletMap"), { ssr: false });
 
 
 export default function Page() {
@@ -59,10 +61,8 @@ export default function Page() {
       items.map((e) => ({
         position: [e.coordenadas.latitude, e.coordenadas.longitude] as [number, number],
         tooltip: (
-          <div className="min-w-[180px] space-y-1 text-left text-xs">
-            <p className="text-sm font-semibold text-white">{e.nome_escola}</p>
-            <p className="text-emerald-100">{formatNumber(e.numero_alunos)} alunos</p>
-            <p className="text-emerald-100/90">Conta mensal: {formatCurrency(e.custo_medio_reais_mes)}</p>
+          <div className="space-y-1 text-center border-rounded text-xs">
+            <p className="text-sm font-semibol">{e.nome_escola}</p>
           </div>
         ),
         onClick: () => {

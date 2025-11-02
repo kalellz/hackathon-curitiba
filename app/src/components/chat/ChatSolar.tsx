@@ -105,15 +105,16 @@ export default function ChatSolar() {
       </div>
 
       <div className="space-y-3">
-        <Textarea
+        {loading ? <></> : <Textarea
           value={input}
           onChange={(event) => setInput(event.target.value)}
           placeholder="Ex.: Temos 600 alunos, conta mensal de R$ 14 mil. Como dimensionar o sistema? Quais incentivos posso buscar?"
           className="min-h-[120px]"
           disabled={loading}
-        />
+        />}
+        
         <Button onClick={handleSend} disabled={loading} className="w-full sm:w-auto">
-          {loading ? "Gerando resposta..." : "Enviar pergunta"}
+          {loading ? "..." : "Enviar pergunta"}
         </Button>
       </div>
     </section>
