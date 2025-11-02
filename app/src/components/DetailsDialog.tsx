@@ -16,7 +16,7 @@ type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   escola: Escola;
-  show: { consumo: boolean; custos: boolean; projeto: boolean; co2: boolean };
+   show: { consumo: boolean; custos: boolean; projeto: boolean; co2: boolean };
 };
 
 const fmt = new Intl.NumberFormat("pt-BR");
