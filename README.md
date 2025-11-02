@@ -1,4 +1,4 @@
-# Geocompasso Energia � Painel Inteligente de Escolas
+# Painel Inteligente de Escolas
 
 Esta plataforma mostra o potencial de energia solar de escolas públicas, estimando payback, economia e impacto ambiental com apoio de IA. O projeto re�ne mapa, simulador interativo e chatbot consultivo, ajudando gestores a priorizar investimentos em geração fotovoltaica.
 
@@ -17,7 +17,7 @@ Esta plataforma mostra o potencial de energia solar de escolas públicas, estima
 - **Modelo de IA local** (Ollama) treinado com os dados das escolas para projetar payback, economia e CO2
 - **Fallback opcional** via Hugging Face Inference API
 
-## Pr�-requisitos
+## Pré-requisitos
 
 1. **Node.js** = 18
 2. **Ollama** instalado e ativo (`ollama serve`)
@@ -32,7 +32,7 @@ Esta plataforma mostra o potencial de energia solar de escolas públicas, estima
    # HF_MODEL=mistralai/Mixtral-8x7B-Instruct
    ```
 
-## Instala��o e execu��o
+## Instalação e execução
 
 ```bash
 cd app
@@ -73,18 +73,18 @@ Acesse [http://localhost:3000](http://localhost:3000).
 }
 ```
 
-## Customiza��o
+## Customização
 
 - Ajuste cores/layout via `src/app/globals.css` e componentes em `src/components/ui/*`.
 - Adicione novas escolas atualizando `src/data/escolas.ts`.
 - Treinamento do modelo ocorre automaticamente em `page.tsx` com base no dataset.
 
-## Contribui��o
+## Contribuição
 
 1. Fa�a um fork
 2. Crie uma branch: `git checkout -b feature/nova-ideia`
 3. Submeta um PR descrevendo a motiva��o
 
-## Licen�a
+## Licença
 
 Projeto para fins educativos e adapte conforme a necessidade da sua rede de ensino.
