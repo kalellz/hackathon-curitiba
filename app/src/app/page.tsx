@@ -8,6 +8,12 @@ import DetailsDialog from "@/components/DetailsDialog";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  trainEnergyModel,
+  predictEnergy,
+  TREES_PER_TON,
+  CAR_TON_PER_YEAR,
+} from "@/lib/energy-model";
 
 const numberFormatter = new Intl.NumberFormat("pt-BR");
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -18,8 +24,6 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 const formatNumber = (value: number) => numberFormatter.format(value);
 const formatCurrency = (value: number) => currencyFormatter.format(value);
 
-const TREES_PER_TON = 560 / 78; // referencia aproximada usando dados reais
-const CAR_TON_PER_YEAR = 4.6; // emissao media anual de um carro (ton CO2)
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -36,42 +40,7 @@ export default function Page() {
     potenciaKwp: number;
   } | null>(null);
 
-  const model = useMemo(() => {
-    const sample = escolas.filter((e) => e.projeto_solar);
-    if (!sample.length) {
-      return null;
-    }
-
-    let sumXX = 0;
-    let sumInvest = 0;
-    let sumEconomia = 0;
-    let sumCo2 = 0;
-    let sumPayback = 0;
-
-    sample.forEach((escola) => {
-      const consumo = escola.consumo_medio_kwh_ano;
-      const projeto = escola.projeto_solar!;
-      sumXX += consumo * consumo;
-      sumInvest += projeto.custo_estimado_implantacao_reais * consumo;
-      sumEconomia += projeto.economia_anual_reais * consumo;
-      sumCo2 += projeto.co2_evitar_ton_ano * consumo;
-      sumPayback += projeto.custo_estimado_implantacao_reais / projeto.economia_anual_reais;
-    });
-
-    return {
-      investCoef: sumInvest / sumXX,
-      economyCoef: sumEconomia / sumXX,
-      co2Coef: sumCo2 / sumXX,
-      paybackAvg: sumPayback / sample.length,
-    };
-  }, []);
-
-  const fallbackModel = {
-    investCoef: 410000 / 182400,
-    economyCoef: 0.671 * 0.88,
-    co2Coef: 78 / 182400,
-    paybackAvg: 3.8,
-  };
+  const model = useMemo(() => trainEnergyModel(escolas), []);
 
   const items = useMemo(
     () =>
@@ -89,8 +58,10 @@ export default function Page() {
       items.map((e) => ({
         position: [e.coordenadas.latitude, e.coordenadas.longitude] as [number, number],
         tooltip: (
-           <div className="space-y-1 text-center text-xs">
-            <p className="text-sm font-semibold">{e.nome_escola}</p>
+          <div className="min-w-[180px] space-y-1 text-left text-xs">
+            <p className="text-sm font-semibold text-white">{e.nome_escola}</p>
+            <p className="text-emerald-100">{formatNumber(e.numero_alunos)} alunos</p>
+            <p className="text-emerald-100/90">Conta mensal: {formatCurrency(e.custo_medio_reais_mes)}</p>
           </div>
         ),
         onClick: () => {
@@ -127,19 +98,14 @@ export default function Page() {
     const consumoMensalKwh = energiaMes / tarifa;
     const consumoAnual = consumoMensalKwh * 12;
 
-    const m = model ?? fallbackModel;
-    const investimento = Math.round(consumoAnual * m.investCoef);
-    const economiaAnual = consumoAnual * m.economyCoef;
-    const co2 = consumoAnual * m.co2Coef;
-    const paybackEstimado =
-      economiaAnual > 0 ? (investimento / economiaAnual + m.paybackAvg) / 2 : m.paybackAvg;
+    const predictions = predictEnergy(model, consumoAnual);
     const potenciaKwp = consumoAnual / (182400 / 150);
 
     setResultado({
-      investimento,
-      economiaAnual,
-      payback: paybackEstimado,
-      co2,
+      investimento: predictions.investimento,
+      economiaAnual: predictions.economiaAnual,
+      payback: predictions.payback,
+      co2: predictions.co2,
       consumoAnual,
       potenciaKwp,
     });
@@ -195,7 +161,7 @@ export default function Page() {
         </div>
       </section>
 
-  <div ref={mapSectionRef} className="space-y-6 pt-4">
+      <div ref={mapSectionRef} className="space-y-6 pt-4">
         <h2 className="text-xl font-semibold text-zinc-800">Mapa de escolas com potencial solar</h2>
         {markers.length > 0 ? (
           <LeafletMap markers={markers} />
@@ -298,4 +264,3 @@ export default function Page() {
     </main>
   );
 }
-

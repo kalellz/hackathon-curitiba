@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Escola } from "@/data/escola";
 import { BrainCircuit, Leaf } from "lucide-react";
+import { TREES_PER_TON, CAR_TON_PER_YEAR } from "@/lib/energy-model";
 
 type Props = {
   open: boolean;
@@ -27,9 +28,6 @@ const currency0 = (n: number) =>
     currency: "BRL",
     maximumFractionDigits: 0,
   }).format(n);
-
-const TREES_PER_TON = 560 / 78; // aproximacao com base na escola de referencia
-const CAR_TON_PER_YEAR = 4.6; // emissao media de um carro por ano (ton CO2)
 
 export default function DetailsDialog({ open, onOpenChange, escola, show }: Props) {
   return (
@@ -148,4 +146,3 @@ export default function DetailsDialog({ open, onOpenChange, escola, show }: Prop
     </Dialog>
   );
 }
-
