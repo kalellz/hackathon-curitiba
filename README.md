@@ -24,7 +24,7 @@ Esta plataforma mostra o potencial de energia solar de escolas públicas, estima
    - Puxe um modelo adequado, ex.: `ollama pull mistral`
    - Variáveis opcionais: `OLLAMA_MODEL` e `OLLAMA_HOST`
 3. Opcional: chave da Hugging Face (`HUGGINGFACE_API_KEY`) para fallback
-4. Preencha `.env.local` (crie se necess�rio):
+4. Preencha `.env.local` (crie se necessário):
    ```env
    OLLAMA_MODEL=mistral
    OLLAMA_HOST=http://localhost:11434
@@ -56,7 +56,7 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 ## Dados
 
-- Os registros base est�o em `src/data/escolas.ts` (inclui escolas de SP e PR).
+- Os registros base estão em `src/data/escolas.ts` (inclui escolas de SP e PR).
 - Tipos de dados em `src/data/escola.ts`.
 - Estimativas são recalculadas em tempo real por `src/lib/energy-model.ts`.
 
