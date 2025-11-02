@@ -14,6 +14,7 @@ import {
   TREES_PER_TON,
   CAR_TON_PER_YEAR,
 } from "@/lib/energy-model";
+import ChatSolar from "@/components/chat/ChatSolar";
 
 const numberFormatter = new Intl.NumberFormat("pt-BR");
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -261,6 +262,8 @@ export default function Page() {
           show={{ consumo: true, custos: true, projeto: true, co2: true }}
         />
       )}
+
+      <ChatSolar />
     </main>
   );
 }
