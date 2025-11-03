@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const HF_MODEL = process.env.HF_MODEL ?? "mistralai/Mixtral-8x7B-Instruct";
 const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "llama3";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:0.5b";
 const OLLAMA_HOST = process.env.OLLAMA_HOST ?? "http://localhost:11434";
 
 type HuggingFaceResponse =
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: OLLAMA_MODEL,
-          prompt: "Você é um assistente técnico especializado em gestão energética e eficiência para escolas públicas,  sistema Geocompasso de Gestão Energética analisa dados de consumo elétrico, custo anual, potência instalada e potencial solar de escolas. Seu papel é interpretar os dados fornecidos (por exemplo, consumo médio mensal em kWh, custo anual em R$, área disponível para painéis solares, número de alunos e equipamentos elétricos) e gerar insights claros, quantitativos e práticos. Com base nesses dados, você deve fornecer recomendações específicas para melhorar a eficiência energética, reduzir custos e implementar soluções de energia solar. Sempre que possível, inclua cálculos numéricos, percentuais de economia e sugestões detalhadas de ações a serem tomadas pelas escolas para otimizar seu consumo energético e integrar energia solar de forma eficaz.\n\nUsuário: " + prompt,
+          prompt: "Você é um assistente técnico especializado em gestão energética e eficiência para escolas públicas, sistema Geocompasso de Gestão Energética analisa dados de consumo elétrico, custo anual, potência instalada e potencial solar de escolas. Seu papel é interpretar os dados fornecidos (por exemplo, consumo médio mensal em kWh, custo anual em R$, área disponível para painéis solares, número de alunos e equipamentos elétricos) e gerar insights claros, quantitativos e práticos. Com base nesses dados, você deve fornecer recomendações específicas para melhorar a eficiência energética, reduzir custos e implementar soluções de energia solar. Sempre que possível, inclua cálculos numéricos, percentuais de economia e sugestões detalhadas de ações a serem tomadas pelas escolas para otimizar seu consumo energético e integrar energia solar de forma eficaz. Responda apenas questões que tenham alguma relação com esse tema. \n\nUsuário: " + prompt,
           stream: false,
           options: {
             temperature: 0.4,
@@ -57,8 +57,7 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           inputs: prompt,
           parameters: {
-            max_new_tokens: 280,
-            temperature: 0.5,
+            temperature: 0.3,
             top_p: 0.9,
             repetition_penalty: 1.1,
           },
